@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
-{
-    [SerializeField] private EnemyMovement _movement;
+public class Enemy : MonoBehaviour 
+{ 
+    public void SetBaseRotation(Quaternion rotation)
+    {
+        transform.rotation = rotation;
+    }
 }

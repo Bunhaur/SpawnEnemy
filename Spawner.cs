@@ -11,23 +11,25 @@ public class Spawner : MonoBehaviour
 
     private void Start()
     {
-        _createEnemyWork = StartCoroutine(CreateEnemy());
+        _createEnemyWork = StartCoroutine(CreateEnemies());
     }
 
-    private IEnumerator CreateEnemy()
+    private IEnumerator CreateEnemies()
     {
+        var timer = new WaitForSeconds(_spawnTime);
+        Enemy enemy;
+
         while (true)
         {
-            Instantiate(_enemy, GetRandomSpawnPoint(), GetRandomRotation());
-            yield return new WaitForSeconds(_spawnTime);
+            enemy = Instantiate(_enemy, GetRandomSpawnPoint(), Quaternion.identity);
+            enemy.SetBaseRotation(GetRandomRotation());
+            yield return timer;
         }
     }
 
     private Vector3 GetRandomSpawnPoint()
     {
-        Vector3 point = _points[UnityEngine.Random.Range(0, _points.Length)];
-
-        return point;
+        return _points[UnityEngine.Random.Range(0, _points.Length)];
     }
 
     private Quaternion GetRandomRotation()
